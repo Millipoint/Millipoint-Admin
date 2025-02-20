@@ -109,7 +109,7 @@ jobs:
              else
               echo 'Process not found, starting...'
               cd ${{ env.APP_DIR }}
-              pm2 start serve -s build -l 3010 --name millipoint-admin
+              pm2 start "serve -s build -l 3010" --name millipoint-admin
              fi
             
           EOF
