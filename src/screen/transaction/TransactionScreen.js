@@ -29,7 +29,7 @@ export default function TransactionScreen() {
     function fetchData(query) {
         toast.loading("Sedang memuat data transaksi")
 
-        axios.get(`http://0.0.0.0:8080/api/v1/get-all-transactions?page=${page}&status=${filterStatus}&search=${query}`)
+        axios.get(`https://api.millipoint.id/api/v1/get-all-transactions?page=${page}&status=${filterStatus}&search=${query}`)
             .then((res) => {
                 toast.dismiss()
                 setData(res.data)
@@ -72,7 +72,7 @@ export default function TransactionScreen() {
 
     async function handleProcessTransaction(apiKey, transaction_id) {
         toast.loading("Sedang memproses data")
-        axios.post('http://0.0.0.0:8080/api/v1/process-transaction', {
+        axios.post('https://api.millipoint.id/api/v1/process-transaction', {
             api_key: apiKey,
             transaction_id
         }).then((res) => {
