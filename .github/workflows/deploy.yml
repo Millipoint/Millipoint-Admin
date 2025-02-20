@@ -78,7 +78,20 @@ jobs:
              
           EOF
 
-      - name: Running pm2 build
+      - name: Running npm run build
+        run: |
+          ssh -i ~/.ssh/id_rsa -p ${{ env.VPS_PORT }} \
+           ${{ env.VPS_USERNAME }}@${{ env.VPS_HOST }} << 'EOF'
+             export NVM_DIR="$HOME/.nvm"
+             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+             cd ${{ env.APP_DIR }}
+             npm run build
+             
+          EOF
+
+      - name: Running pm2 start
         run: |
           ssh -i ~/.ssh/id_rsa -p ${{ env.VPS_PORT }} \
            ${{ env.VPS_USERNAME }}@${{ env.VPS_HOST }} << 'EOF'
@@ -91,7 +104,7 @@ jobs:
 
              if pm2 list | grep -q 'milli-point'; then
               echo 'Process exists, restarting...'
-              pm2 restart millipoint-admin
+              pm2 restart millipoint-fe
              else
               echo 'Process not found, starting...'
               cd ${{ env.APP_DIR }}
