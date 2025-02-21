@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { formatCurrency } from "../../utils/CurrencyUtils";
 
 import _ from 'lodash';
+import { encrypt } from "../../utils/Crypto";
 
 export default function TransactionScreen() {
     const [params, setParams] = useSearchParams();
@@ -73,8 +74,8 @@ export default function TransactionScreen() {
     async function handleProcessTransaction(apiKey, transaction_id) {
         toast.loading("Sedang memproses data")
         axios.post('https://api.millipoint.id/api/v1/process-transaction', {
-            api_key: apiKey,
-            transaction_id
+            api_key: encrypt(apiKey, process.env.ENCRYPTION_KEY),
+            transaction: encrypt(transaction_id, process.env.ENCRYPTION_KEY)
         }).then((res) => {
             toast.dismiss()
             fetchData(search)
@@ -144,7 +145,7 @@ export default function TransactionScreen() {
                             }
                         }}
                     >
-                        prev
+                        Prev
                     </button>
                     <button
                         type="button"
@@ -153,7 +154,7 @@ export default function TransactionScreen() {
                             setPage(parseInt(page) + 1)
                         }}
                     >
-                        next
+                        Next
                     </button>
                 </div>
             </div>

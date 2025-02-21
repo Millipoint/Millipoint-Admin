@@ -10,6 +10,8 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.2.3",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.7",
     "framer-motion": "^12.4.4",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",

@@ -12,7 +12,7 @@ function App() {
         <BrowserRouter>
           <div>
             <Routes>
-              <Route path='/atmin' element={<TransactionScreen />} />
+              <Route path='/' element={<TransactionScreen />} />
             </Routes>
             <ToastContainer />
           </div>
