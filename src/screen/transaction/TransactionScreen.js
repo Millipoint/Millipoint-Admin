@@ -151,9 +151,7 @@ export default function TransactionScreen() {
                         type="button"
                         class="btn btn-primary col-3 mx-2"
                         onClick={() => {
-                            // setPage(parseInt(page) + 1)
-
-                            console.log(process.env.REACT_APP_ENCRYPTION_KEY)
+                            setPage(parseInt(page) + 1)
                         }}
                     >
                         Next
