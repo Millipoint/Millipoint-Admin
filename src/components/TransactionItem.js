@@ -39,7 +39,7 @@ export const TransactionItem = ({
             break;
         case '4':
             badgeClass = 'bg-primary';
-            badgeText = 'Pending';
+            badgeText = 'Sedang dikirim';
             break;
         default:
             badgeClass = 'bg-secondary';

@@ -115,6 +115,7 @@ export default function TransactionScreen() {
                         <li><a class="dropdown-item" onClick={() => { setFilterStatus("1") }}>Proses</a></li>
                         <li><a class="dropdown-item" onClick={() => { setFilterStatus("2") }}>Berhasil</a></li>
                         <li><a class="dropdown-item" onClick={() => { setFilterStatus("3") }}>Gagal</a></li>
+                        <li><a class="dropdown-item" onClick={() => { setFilterStatus("4") }}>Sedang dikirim</a></li>
                     </ul>
                 </div>
             </div>
