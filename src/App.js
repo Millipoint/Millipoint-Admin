@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import TransactionScreen from './screen/transaction/TransactionScreen';
 import { ToastContainer } from 'react-toastify';
 
+require('dotenv').config();
+
 function App() {
   return (
     <div className="App">
