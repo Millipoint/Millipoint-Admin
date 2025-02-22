@@ -7,7 +7,7 @@ export function encrypt(plainText, keyStr) {
     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
         iv: CryptoJS.lib.WordArray.create(iv),
         mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
+        padding: CryptoJS.pad.ZeroPadding
     });
 
     return encrypted.toString(); // Hasil base64
@@ -20,7 +20,7 @@ export function decrypt(encryptedText, keyStr) {
     const decrypted = CryptoJS.AES.decrypt(encryptedText, key, {
         iv: CryptoJS.lib.WordArray.create(iv),
         mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
+        padding: CryptoJS.pad.ZeroPadding
     });
 
     return decrypted.toString(CryptoJS.enc.Utf8);
