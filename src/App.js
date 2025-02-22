@@ -4,6 +4,7 @@ import 'reactjs-popup/dist/index.css';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import TransactionScreen from './screen/transaction/TransactionScreen';
 import { ToastContainer } from 'react-toastify';
+import PriceScreen from './screen/price/PriceScreen.js';
 
 // require('dotenv').config();
 
@@ -14,7 +15,8 @@ function App() {
         <BrowserRouter>
           <div>
             <Routes>
-              <Route path='/' element={<TransactionScreen />} />
+              <Route path='/transaction' element={<TransactionScreen />} />
+              <Route path='/price' element={<PriceScreen />} />
             </Routes>
             <ToastContainer />
           </div>

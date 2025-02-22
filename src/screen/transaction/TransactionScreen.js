@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { formatCurrency } from "../../utils/CurrencyUtils";
 
 import _ from 'lodash';
-import { encrypt } from "../../utils/Crypto";
+import { decrypt, encrypt } from "../../utils/Crypto";
 
 export default function TransactionScreen() {
     const [params, setParams] = useSearchParams();
@@ -30,10 +30,17 @@ export default function TransactionScreen() {
     function fetchData(query) {
         toast.loading("Sedang memuat data transaksi")
 
-        axios.get(`https://api.millipoint.id/api/v1/get-all-transactions?page=${page}&status=${filterStatus}&search=${query}`)
+        axios.get(`https://api.millipoint.id/api/v1/admin/get-all-transactions?page=${page}&status=${filterStatus}&search=${query}`)
             .then((res) => {
                 toast.dismiss()
-                setData(res.data)
+
+                const body = JSON.parse(decrypt(res.data, process.env.REACT_APP_ENCRYPTION_KEY))
+                const bodyData = JSON.parse(body.data)
+
+                setData({
+                    ...body,
+                    data: bodyData
+                })
             })
             .catch((e) => {
                 toast.dismiss()
@@ -73,9 +80,14 @@ export default function TransactionScreen() {
 
     async function handleProcessTransaction(apiKey, transaction_id) {
         toast.loading("Sedang memproses data")
-        axios.post('https://api.millipoint.id/api/v1/process-transaction', {
-            api_key: encrypt(apiKey, process.env.ENCRYPTION_KEY),
-            transaction: encrypt(transaction_id, process.env.ENCRYPTION_KEY)
+        axios.post('https://api.millipoint.id/api/v1/admin/process-transaction', {
+            data: encrypt(
+                JSON.stringify({
+                    api_key: encrypt(apiKey, process.env.ENCRYPTION_KEY),
+                    transaction: encrypt(transaction_id, process.env.ENCRYPTION_KEY)
+                }),
+                process.env.REACT_APP_ENCRYPTION_KEY
+            )
         }).then((res) => {
             toast.dismiss()
             fetchData(search)
@@ -91,7 +103,7 @@ export default function TransactionScreen() {
 
     return <div class="bg-black">
         <div class="px-5 py-4">
-            <h3 class="text-white">Halaman Admin Millipoint</h3>
+            <h3 class="text-white">Halaman Admin Transaksi</h3>
             <div class="text-end">
                 <div class="mb-3">
                     <input
